@@ -1,12 +1,4 @@
-# Hack-a-Tap: A Clickjacker Tool
 
-**Hack-a-Tap** is a sophisticated clickjacking tool that simulates a legitimate website to collect sensitive user data, including images, location, and other device details. The collected data is then sent to a **Telegram bot** for monitoring. This project is designed for educational and research purposes, showcasing the risks of clickjacking attacks and how easily user information can be stolen through deceptive websites.
-
-## Features
-- **Clickjacking Simulation**: Hack-a-Tap mimics a legitimate website to trick users into interacting with it.
-- **Data Capture**: Collects sensitive information like the user’s device details, image, and location.
-- **Telegram Integration**: Sends the captured data directly to a specified Telegram bot.
-- **Easy Setup**: Simple and intuitive Python-based tool that can be deployed with minimal setup.
 
 ## How It Works
 1. **User Accesses the Site**: When a user visits the Hack-a-Tap website, they unknowingly interact with the clickjacker.
